@@ -1,14 +1,15 @@
 class Solution {
 public:
     int firstUniqChar(string s) {
-        unordered_map<char,int> mpp;
+        vector<int> freq(26,0);
         queue<int> que;
 
         for(int i=0; i<s.length(); i++) {
-            if(mpp.find(s[i]) == mpp.end()) que.push(i);
-            mpp[s[i]]++;
+            char ch = s[i];
+            freq[ch - 'a']++;
+            que.push(i);
 
-            while(que.size() > 0 && mpp[s[que.front()]] > 1) que.pop();
+            while(!que.empty() > 0 && freq[s[que.front()] - 'a'] > 1) que.pop();
         }
 
         return que.empty() ? -1 : que.front();
