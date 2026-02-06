@@ -13,16 +13,15 @@ public:
     bool isPalindrome(ListNode* head) {
         ListNode* slow = head;
         ListNode* fast = head;
-
-        while(fast != NULL && fast->next != NULL) {
-            fast = fast->next->next;
+        while(fast->next && fast->next->next) {
             slow = slow->next;
+            fast = fast->next->next;
         }
 
         ListNode* h1 = head;
         ListNode* h2 = reverse(slow);
 
-        while(h2 != NULL) {
+        while(h1) {
             if(h1->val != h2->val) return false;
 
             h1 = h1->next;
@@ -31,15 +30,17 @@ public:
         return true;
     }
 
-    ListNode* reverse(ListNode* &head) {
-        if(head == NULL || head->next == NULL) return head;
+    ListNode* reverse(ListNode* head) {
+        ListNode* temp = head;
+        ListNode* prev = NULL;
+        while(temp) {
+            ListNode* front = temp->next;
 
-        ListNode* newHead = reverse(head->next);
-        
-        ListNode* front = head->next;
-        front->next = head;
-        head->next = NULL;
+            temp->next = prev;
 
-        return newHead;
+            prev = temp;
+            temp = front;
+        }
+        return prev;
     }
 };
