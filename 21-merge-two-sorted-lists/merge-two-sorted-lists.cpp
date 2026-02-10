@@ -28,13 +28,9 @@ public:
         }
         if(list1) {
             temp->next = list1;
-            list1 = list1->next;
-            temp = temp->next;
         }
         if(list2) {
             temp->next = list2;
-            list2 = list2->next;
-            temp = temp->next;
         }
         return dummyNode->next;
     }
